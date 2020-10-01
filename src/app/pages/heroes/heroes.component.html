@@ -1,0 +1,78 @@
+<h1 class="animate__animated animate__fadeInDown">Listado de héroes</h1>
+<hr>
+<div class="row">
+  <div class="col text-right animate__animated animate__fadeInUp">
+    <button class="btn btn-primary"
+    routerLink="/heroe/nuevo">
+      <i class="fa fa-plus"></i>
+      Agregar
+    </button>
+  </div>
+</div>
+
+<div *ngIf="!loading && heroes.length > 0" class="row animate__animated animate__fadeIn">
+  <div class="col">
+
+
+    <table class="table mt-3">
+      <thead class="thead-dark">
+        <tr>
+          <th>#</th>
+          <th>Nombre</th>
+          <th>Poder</th>
+          <th>Vivo</th>
+          <th>Tools</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let heroe of heroes; let i = index" >
+          <th scope="row">
+            {{i +1 }}
+          </th>
+          <td> {{heroe.nombre}}</td>
+          <td> {{heroe.poder}}</td>
+          <td>
+            <label *ngIf="heroe.vivo" class="badge badge-success">Vivo</label>
+            <label *ngIf="!heroe.vivo" class="badge badge-danger">Muerto</label>
+          </td>
+          <td>
+            <button class="btn btn-info mr-1"
+            [routerLink] = "['/heroe', heroe.id]">
+              <i class="fa fa-pen"></i>
+            </button>
+            <button class="btn btn-danger mr-1"
+            (click)="eliminar(heroe, i)">
+              <i class="fa fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+
+    </table>
+  </div>
+</div>
+
+
+<div *ngIf="loading" class="alert alert-info text-center mt-3 border-0 animate__animated animate__fadeInUp">
+  <h4 class="alert-heading mt-2">Cargando</h4><br>
+  <!-- <p>
+    <i class="fa fa-sync-alt fa-spin fa-2x"></i>
+  </p> -->
+  <div class="text-center">
+    <img src="assets/svg/loader.svg" alt="" style="height:80px ;">
+  </div>
+  <p class="mb-2">
+    Espere por favor
+  </p>
+</div>
+
+
+<div *ngIf="heroes.length === 0 && !loading" class="alert alert-warning text-center mt-3  border-0 animate__animated animate__fadeInUp">
+  <h4 class="alert-heading mt-2">No hay héroes</h4><br>
+  <p>
+    <i class="fa fa-exclamation fa-2x"></i>
+  </p>
+  <p class="mb-2">
+    Debes agregar un héroe
+  </p>
+</div>
